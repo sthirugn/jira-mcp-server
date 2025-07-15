@@ -1,0 +1,14 @@
+# Jira MCP Server Configuration Template
+# Copy this content to a .env file and fill in your actual Jira credentials
+
+# Your Jira server URL (include https://)
+JIRA_SERVER=https://your-company.atlassian.net
+
+# Your Jira email address
+JIRA_EMAIL=your-email@company.com
+
+# Your Jira API token (get this from https://id.atlassian.com/manage-profile/security/api-tokens)
+JIRA_API_TOKEN=your-api-token-here
+
+# Optional: Set log level (DEBUG, INFO, WARNING, ERROR)
+LOG_LEVEL=INFO 
