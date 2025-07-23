@@ -1,0 +1,72 @@
+# Example Team Summary Configuration
+# Copy this file to team_config.yaml and customize for your team
+
+# Base JQL filter - modify this to include your team's projects, components, and team members
+base_jql: |
+  (
+      project = MYPROJECT AND Component in ("Backend", "Frontend", "API")
+  ) OR (
+      project in (MYPROJECT, TESTS) AND assignee in ("manager@company.com", "dev1@company.com", "dev2@company.com")
+  ) OR (
+      project = MYPROJECT AND "QA Contact" in ("qa1@company.com", "qa2@company.com")
+  )
+
+# Team categorization rules
+# Each category can have:
+#   - components: List of Jira components to match
+#   - projects: List of Jira project keys to match  
+#   - keywords: List of keywords to search for in summary/description (case-sensitive)
+#   - description: Human-readable description of the category
+team_categories:
+  Backend Development:
+    components:
+      - "Backend"
+      - "API"
+    keywords:
+      - "database"
+      - "service"
+    description: "Backend services and API development"
+
+  Frontend Development:
+    components:
+      - "Frontend"
+      - "UI"
+    keywords:
+      - "react"
+      - "typescript"
+    description: "Frontend and user interface work"
+
+  Quality Engineering:
+    components:
+      - "QE"
+      - "Testing"
+    projects:
+      - "TESTS"
+    description: "Quality engineering and testing"
+
+  DevOps:
+    keywords:
+      - "deployment"
+      - "infrastructure"
+      - "kubernetes"
+    description: "DevOps and infrastructure work"
+
+  Security:
+    keywords:
+      - "security"
+      - "CVE"
+      - "vulnerability"
+    description: "Security-related work and CVE fixes"
+
+# Optional: Status filters
+# Uncomment and modify to exclude certain statuses
+status_filters:
+  exclude:
+    - "New"
+    - "Backlog"
+    - "Blocked"
+
+# Optional: Report settings
+report_settings:
+  max_results: 100
+  order_by: "updated DESC" 
