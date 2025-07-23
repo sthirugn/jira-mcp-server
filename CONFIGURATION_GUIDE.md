@@ -148,14 +148,14 @@ base_jql: |
   (
     project in (SECURITY, AUDIT) 
   ) OR (
-    assignee in ("security-team@company.com") AND summary ~ "CVE*"
+    assignee in ("security-team@example.com") AND summary ~ "security-fix*"
   ) OR (
     labels in (security, vulnerability, compliance)
   )
 
 team_categories:
   Vulnerability Management:
-    keywords: ["CVE", "vulnerability", "security-fix"]
+    keywords: ["security", "vulnerability", "fix"]
     description: "Security vulnerabilities and patches"
     
   Compliance:

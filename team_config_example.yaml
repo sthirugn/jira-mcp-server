@@ -4,11 +4,11 @@
 # Base JQL filter - modify this to include your team's projects, components, and team members
 base_jql: |
   (
-      project = MYPROJECT AND Component in ("Backend", "Frontend", "API")
+      project = ALPHA AND Component in ("Backend", "Frontend", "API")
   ) OR (
-      project in (MYPROJECT, TESTS) AND assignee in ("manager@company.com", "dev1@company.com", "dev2@company.com")
+      project in (ALPHA, BETA) AND assignee in ("manager@example.com", "dev1@example.com", "dev2@example.com")
   ) OR (
-      project = MYPROJECT AND "QA Contact" in ("qa1@company.com", "qa2@company.com")
+      project = ALPHA AND "QA Contact" in ("qa1@example.com", "qa2@example.com")
   )
 
 # Team categorization rules
@@ -54,9 +54,9 @@ team_categories:
   Security:
     keywords:
       - "security"
-      - "CVE"
       - "vulnerability"
-    description: "Security-related work and CVE fixes"
+      - "audit"
+    description: "Security-related work and vulnerability fixes"
 
 # Optional: Status filters
 # Uncomment and modify to exclude certain statuses

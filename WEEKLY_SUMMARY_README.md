@@ -6,10 +6,10 @@ A comprehensive tool for generating weekly Jira team summaries organized by func
 
 This tool fetches Jira tickets from your team's filter and categorizes them into four key areas:
 
-1. **Remediations Core** - Core remediation functionality and frontend work
-2. **Remediations Platform** - Platform services (Playbook Dispatcher, Cloud Connector) and metrics work  
-3. **QE / Integrations** - Quality engineering, integration testing (Eventing, Policies, Floorist, IQE projects)
-4. **Edge Decommission** - HMS project and edge decommission work
+1. **Frontend Core** - Core frontend functionality and UI components
+2. **Backend Platform** - Platform services (API Gateway, Message Queue) and metrics work  
+3. **QE / Testing** - Quality engineering, automation testing, and integration work
+4. **Legacy Migration** - Legacy system migration and cleanup work
 
 ## 🚀 Quick Start
 
@@ -57,20 +57,20 @@ Generated: 2024-07-22 22:36:13
 
 📈 OVERVIEW:
    Total Tickets: 36
-   Remediations Core: 23 tickets
-   QE / Integrations: 5 tickets
+   Frontend Core: 23 tickets
+   QE / Testing: 5 tickets
    Other: 8 tickets
 
 ============================================================
-🎯 REMEDIATIONS CORE
-📝 Core remediation functionality and frontend work
+🎯 FRONTEND CORE
+📝 Core frontend functionality and UI components
 ============================================================
 
 📌 Closed (23 tickets):
-   • RHINENG-8445: CVE-2024-21501 sanitize-html: Information Exposure...
-     Assignee: Samuel Oleksak | Priority: Normal
-     Components: Advisor, Frontend, Tasks
-     Updated: 2024-07-18 | URL: https://issues.redhat.com/browse/RHINENG-8445
+   • PROJ-8445: Fix security vulnerability in input sanitization
+     Assignee: John Smith | Priority: Normal
+     Components: Frontend, Security, Components
+     Updated: 2024-07-18 | URL: https://issues.company.com/browse/PROJ-8445
    
    [... more tickets ...]
 ```
@@ -87,7 +87,7 @@ Generated: 2024-07-22 22:36:13
 2. **Jira Credentials**: Ensure your `.env` file is configured:
    ```bash
    JIRA_SERVER=https://issues.redhat.com/
-   JIRA_EMAIL=your-email@redhat.com
+   JIRA_EMAIL=your-email@example.com
    JIRA_API_TOKEN=your-api-token
    ```
 
@@ -121,31 +121,31 @@ For detailed configuration instructions, see **[CONFIGURATION_GUIDE.md](CONFIGUR
 
 The tool uses a comprehensive JQL filter that includes:
 
-- **Project-based filtering**: RHINENG, IQE, HMS, Insights Experiences
-- **Component-based filtering**: Drift, Eventing, Policies, Remediations, Playbook Dispatcher, Cloud Connector, Floorist
+- **Project-based filtering**: ALPHA, BETA, GAMMA, Platform Services  
+- **Component-based filtering**: Frontend, Backend, API, Database, Message Queue, Analytics
 - **Team member assignments**: Assignee, Contributors, QA Contact fields
 - **Date range filtering**: Updated within the specified week
 
 ## 🎯 Categorization Rules
 
-### Remediations Core
-- **Components**: Remediations, Frontend
-- **Focus**: Core remediation functionality and UI work
+### Frontend Core
+- **Components**: Frontend, UI Components
+- **Focus**: Core frontend functionality and UI work
 
-### Remediations Platform  
-- **Components**: Playbook Dispatcher, Cloud Connector
-- **Keywords**: metrics, metric
+### Backend Platform  
+- **Components**: API Gateway, Message Queue
+- **Keywords**: metrics, service
 - **Focus**: Platform services and observability
 
-### QE / Integrations
-- **Components**: Eventing, Policies, Floorist
-- **Projects**: IQE
+### QE / Testing
+- **Components**: Testing, Automation, QE
+- **Projects**: GAMMA
 - **Focus**: Quality engineering and integration testing
 
-### Edge Decommission
-- **Projects**: HMS
-- **Keywords**: hms, edge, decommission
-- **Focus**: Edge infrastructure migration work
+### Legacy Migration
+- **Projects**: LEGACY
+- **Keywords**: migration, cleanup, legacy
+- **Focus**: Legacy system migration work
 
 ## 📁 Output Files
 
