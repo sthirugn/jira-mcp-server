@@ -1,6 +1,6 @@
 # Jira MCP Server
 
-A powerful Model Context Protocol (MCP) server that provides seamless integration between AI assistants and Jira, enabling natural language interaction with your Jira projects, issues, and workflows.
+A clean and focused Model Context Protocol (MCP) server that provides seamless integration between AI assistants and Jira, enabling natural language interaction with your Jira projects, issues, and workflows.
 
 ## 🎯 Features
 
@@ -127,12 +127,14 @@ Restart your MCP client and try these commands:
 jira-mcp-server/
 ├── server.py              # Main MCP server implementation
 ├── test_connection.py     # Connection test script
-
-
 ├── requirements.txt       # Python dependencies
 ├── .env                   # Environment variables (create this)
 └── README.md              # This file
 ```
+
+## 🔗 Related Projects
+
+- **[Jira Weekly Reports](https://github.com/sthirugn/jira-weekly-reports)** - Generate automated weekly team summaries from Jira tickets
 
 ## 🎯 Usage Examples
 
