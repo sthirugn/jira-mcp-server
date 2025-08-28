@@ -85,7 +85,7 @@ def main():
     if not os.path.exists(".env"):
         print("❌ .env file not found!")
         print("Please create a .env file with your Jira credentials.")
-        print("You can copy from config.template and modify it.")
+        print("Please create a .env file with your Jira credentials.")
         sys.exit(1)
     
     success = test_jira_connection()

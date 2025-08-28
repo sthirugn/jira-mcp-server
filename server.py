@@ -207,6 +207,39 @@ class JiraMCPServer:
                         },
                         "required": ["project_key"]
                     }
+                ),
+                Tool(
+                    name="get_my_issues",
+                    description="Get issues assigned to the current user",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "max_results": {
+                                "type": "integer",
+                                "description": "Maximum number of results to return",
+                                "default": 20
+                            }
+                        }
+                    }
+                ),
+                Tool(
+                    name="get_project_issues",
+                    description="Get all issues for a specific project",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "project_key": {
+                                "type": "string",
+                                "description": "Project key"
+                            },
+                            "max_results": {
+                                "type": "integer",
+                                "description": "Maximum number of results to return",
+                                "default": 50
+                            }
+                        },
+                        "required": ["project_key"]
+                    }
                 )
             ]
 
@@ -256,6 +289,13 @@ class JiraMCPServer:
                     return await self._get_project(arguments["project_key"])
                 elif name == "get_issue_types":
                     return await self._get_issue_types(arguments["project_key"])
+                elif name == "get_my_issues":
+                    return await self._get_my_issues(arguments.get("max_results", 20))
+                elif name == "get_project_issues":
+                    return await self._get_project_issues(
+                        arguments["project_key"],
+                        arguments.get("max_results", 50)
+                    )
                 else:
                     return [TextContent(type="text", text=f"Unknown tool: {name}")]
                     
@@ -529,6 +569,54 @@ class JiraMCPServer:
             
         except Exception as e:
             return [TextContent(type="text", text=f"Error fetching issue types for {project_key}: {str(e)}")]
+
+    async def _get_my_issues(self, max_results: int = 20) -> List[TextContent]:
+        """Get issues assigned to the current user"""
+        try:
+            jql = "assignee = currentUser() ORDER BY updated DESC"
+            issues = self.jira_client.search_issues(jql, maxResults=max_results)
+            
+            if not issues:
+                return [TextContent(type="text", text="No issues assigned to you found.")]
+            
+            result_text = f"**Your assigned issues ({len(issues)}):**\n\n"
+            
+            for issue in issues:
+                result_text += (
+                    f"• **{issue.key}** - {issue.fields.summary}\n"
+                    f"  Status: {issue.fields.status.name} | "
+                    f"Priority: {issue.fields.priority.name if issue.fields.priority else 'None'}\n"
+                    f"  URL: {self.jira_client.server_url}/browse/{issue.key}\n\n"
+                )
+            
+            return [TextContent(type="text", text=result_text)]
+            
+        except Exception as e:
+            return [TextContent(type="text", text=f"Error fetching your issues: {str(e)}")]
+
+    async def _get_project_issues(self, project_key: str, max_results: int = 50) -> List[TextContent]:
+        """Get all issues for a specific project"""
+        try:
+            jql = f"project = {project_key} ORDER BY updated DESC"
+            issues = self.jira_client.search_issues(jql, maxResults=max_results)
+            
+            if not issues:
+                return [TextContent(type="text", text=f"No issues found for project {project_key}.")]
+            
+            result_text = f"**Issues in project {project_key} ({len(issues)}):**\n\n"
+            
+            for issue in issues:
+                result_text += (
+                    f"• **{issue.key}** - {issue.fields.summary}\n"
+                    f"  Status: {issue.fields.status.name} | "
+                    f"Assignee: {issue.fields.assignee.displayName if issue.fields.assignee else 'Unassigned'}\n"
+                    f"  URL: {self.jira_client.server_url}/browse/{issue.key}\n\n"
+                )
+            
+            return [TextContent(type="text", text=result_text)]
+            
+        except Exception as e:
+            return [TextContent(type="text", text=f"Error fetching project issues: {str(e)}")]
 
     async def run(self):
         """Run the MCP server"""
