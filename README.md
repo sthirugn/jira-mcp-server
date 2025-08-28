@@ -68,12 +68,13 @@ python3 test_connection.py
 ### 4. Configure MCP Client
 
 #### For Cursor:
-Add to `~/.cursor/mcp_servers.json`:
+Add to `~/.cursor/mcp.json`:
 
 ```json
 {
   "mcpServers": {
     "jira": {
+      "type": "stdio",
       "command": "python3",
       "args": ["/full/path/to/jira-mcp-server/server.py"],
       "env": {
@@ -93,6 +94,7 @@ Add to your VS Code MCP configuration:
 {
   "mcpServers": {
     "jira": {
+      "type": "stdio",
       "command": "python3",
       "args": ["/full/path/to/jira-mcp-server/server.py"],
       "env": {
@@ -105,7 +107,10 @@ Add to your VS Code MCP configuration:
 }
 ```
 
-**Important:** Use the full absolute path to `server.py`!
+**Important:** 
+- Use the full absolute path to `server.py`!
+- The `"type": "stdio"` field is **required** for proper MCP communication
+- If using a virtual environment, use the full path to the Python interpreter: `"/path/to/venv/bin/python3"`
 
 ### 5. Start the Server
 
@@ -298,6 +303,8 @@ python3 server.py
    - Double-check the absolute path in your MCP config
    - Restart Cursor completely
    - Check that the `.env` file has the correct credentials
+   - **"No tools or prompts" error**: Ensure `"type": "stdio"` is included in your MCP configuration
+   - **Virtual environment**: Use the full path to your Python interpreter (e.g., `/path/to/venv/bin/python3`)
 
 ### Debug Mode
 
