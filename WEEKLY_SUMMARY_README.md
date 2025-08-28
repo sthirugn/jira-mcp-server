@@ -86,7 +86,7 @@ Generated: 2024-07-22 22:36:13
 
 2. **Jira Credentials**: Ensure your `.env` file is configured:
    ```bash
-   JIRA_SERVER=https://issues.redhat.com/
+   JIRA_SERVER=https://your-company.atlassian.net
    JIRA_EMAIL=your-email@example.com
    JIRA_API_TOKEN=your-api-token
    ```
