@@ -70,23 +70,4 @@ Thumbs.db
 *.log
 logs/
 
-# Local config files (keep template)
-config.local
-
-# Generated team summary reports (now in Markdown format for better rendering)
-Reports/
-team_summary_*.md
-team_summary_*.txt
-
-# Custom team configuration files (keep example template only)
-team_config.yaml
-*_team_config.yaml
-my_team_config.yaml
-backend_team.yaml
-frontend_team.yaml
-security_team.yaml
-devops_team.yaml
-
-# Personal/temporary config files
-temp_config.yaml
-test_config.yaml 
+ 
