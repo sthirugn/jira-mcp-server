@@ -103,6 +103,10 @@ class JiraMCPServer:
                                 "type": "string",
                                 "description": "Priority level (e.g., Blocker, Critical, Major, Minor, Undefined)",
                                 "default": "Undefined"
+                            },
+                            "due_date": {
+                                "type": "string",
+                                "description": "Due date in YYYY-MM-DD format (optional)"
                             }
                         },
                         "required": ["project_key", "issue_type", "summary", "description"]
@@ -265,7 +269,8 @@ class JiraMCPServer:
                         arguments["issue_type"],
                         arguments["summary"],
                         arguments["description"],
-                        arguments.get("priority", "Medium")
+                        arguments.get("priority", "Medium"),
+                        arguments.get("due_date")
                     )
                 elif name == "update_issue":
                     return await self._update_issue(
@@ -389,7 +394,7 @@ class JiraMCPServer:
             return [TextContent(type="text", text=f"Error searching issues: {str(e)}")]
 
     async def _create_issue(self, project_key: str, issue_type: str, summary: str, 
-                          description: str, priority: str = "Medium") -> List[TextContent]:
+                          description: str, priority: str = "Medium", due_date: str = None) -> List[TextContent]:
         """Create a new Jira issue"""
         try:
             issue_dict = {
@@ -403,13 +408,18 @@ class JiraMCPServer:
             if priority:
                 issue_dict['priority'] = {'name': priority}
             
+            # Add due date if specified
+            if due_date:
+                issue_dict['duedate'] = due_date
+            
             new_issue = self.jira_client.create_issue(fields=issue_dict)
             
+            due_date_text = f"\n**Due Date:** {due_date}" if due_date else ""
             text = (f"**Issue created successfully!**\n\n"
                    f"**Key:** {new_issue.key}\n"
                    f"**Summary:** {summary}\n"
                    f"**Type:** {issue_type}\n"
-                   f"**Priority:** {priority}\n"
+                   f"**Priority:** {priority}{due_date_text}\n"
                    f"**URL:** {self.jira_client.server_url}/browse/{new_issue.key}")
             
             return [TextContent(type="text", text=text)]
