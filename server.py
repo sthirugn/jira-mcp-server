@@ -101,8 +101,8 @@ class JiraMCPServer:
                             },
                             "priority": {
                                 "type": "string",
-                                "description": "Priority level (e.g., High, Medium, Low)",
-                                "default": "Medium"
+                                "description": "Priority level (e.g., Blocker, Critical, Major, Minor, Undefined)",
+                                "default": "Undefined"
                             }
                         },
                         "required": ["project_key", "issue_type", "summary", "description"]
